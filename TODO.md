@@ -1,20 +1,20 @@
 - [X] store items
 	-[X] create items
-	-[ ] edit/update item
-		-[ ] select item
+	-[X] edit/update item
+		-[X] select item
 	-[X] delete item
 	
 
 	-[ ] Front End
-		-[ ] display items
-		-[ ] enter new items
-		-[ ] select item for edit
-		-[ ] select item for delete
-		-[ ] a form
+		-[X] display items
+		-[X] enter new items
+		-[X] select item for edit
+		-[X] select item for delete
+		-[X] a form
 		-[ ] Donate button
 
 		-[ ] UI/UX consdierations
-			-[ ] Confirmation of delete/update
+			-[X] Confirmation of delete/update
 			-[ ] Sortable list
 			-[ ] Navigation/Pagination
 			-[ ] recurring item (?)
@@ -30,3 +30,40 @@
 	-[ ] c3.js or charts.js
 
 -[ ] testing
+
+## Feature List
+
+### 1 = already done, 5 = 1 day, 10 = five days
+
+-[X] Upload PDF: 5 CANCELLED
+ 	-[X] Add to PDFs list CANCELLED
+	-[X] Delete from PDFs list CANCELLED
+
+-[ ] Highlighting/Selecting PDFs: 7
+	-[X] Parse PDF for '?'s: 5
+	-[ ] Make '?'s clickable: 2.5
+	-[ ] Add clickable '?'s to questions list: 2.5
+	-[ ] Highlight Text Passage: 3.5
+		-[ ] Create Question based on Highlight: 2.5
+		-[ ] Add to Answer of previously created Question based on Highlighted passage: 2.5
+
+-[ ] Questions list: 7
+	-[X] Add question: 2.5
+		-[X] Adds question on Publish
+		-[X] Auto-growing question field
+			-[X] adjusts size on keyup
+			-[X] resets size after Publish
+	-[ ] Edit question: 2.5
+	-[X] Delete question: 2.5
+	-[X] Add answer: 2
+		-[X] Adds answer to question on Publish
+		-[X] Auto-growing question field
+			-[X] adjusts size on keyup
+			-[X] resets size after Publish
+	-[ ] Edit answer: 2
+	-[ ] Delete Answer: 2
+	-[X] Search Questions on keyup
+	-[X] Search Answers on keyup
+	-[ ] Truncated Question Cards
+	-[ ] Long-Word-Wrapping Question Cards
+	-[ ] See More

@@ -1,25 +1,261 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>My First Cruddy App</title>
 	<link rel="stylesheet" href="app.css">
-	<script
-  src="https://code.jquery.com/jquery-3.3.1.js"
+	<script src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
-  <script src="app.js"></script>
-
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" type="text/javascript"></script> 
+  	<script src="app.js"></script>
 </head>
 <body>
 
 <!-- TODO -->
 <!--  -->
+<div class="navigation">
+	<div class="mode_button reader_mode_button">Reader</div>
+	<div class="mode_button balanced_mode_button">=</div>
+	<div class="mode_button question_mode_button">Questions</div>
+</div>
 
-	<input class="user_input" type="text">
-	<button class="add_text_button">add text</button>
-	<button class="delete_text_button"> Delete Text! </button>
-	<div class="display"></div>
+<div class="content_area balanced_mode">
+	<div class="display_pdf">
+		<div class="page">
+			<div class=image_and_caption>
+				<img class="image" src="Ball's Atlas of Astronomy.png"></img>
+				<div class="caption">A chart of Mars. Illustration: Sir Robert Stawell Ball</div>
+			</div>
+		</div>
+		<div class="page" id="page_1">
 
+			<div class="author author_1">Elinor Fuchs</div>
+			<div class="title title_1"> EF’s Visit to a Small Planet:</div> 
+			<div class="title title_2"> Some Questions to Ask a Play</div>
+
+			<div class="paragraph" id="paragraph_1">
+				Since its origination as a classroom tool in the early 1990s, Elinor Fuchs’s essay has acquired a devoted following, with tattered photocopies circulating in literary oﬃces and university departments. More recently it has inspired discussions in Internet chat rooms and garnered citations in scholarly journals, despite remaining unavailable to a broad readership. The time has come to publish “EF’s Visit to a Small Planet,” an essay that widens our perception of dramatic worlds. Like good plays, it grows more meaningful with each reading.
+			</div> 
+
+			<div class="quote_origin">—Editors</div>
+
+			<div class="paragraph">
+				The following walk through dramatic structure is a teaching tool. For the past several years I have used it at the Yale School of Drama as an entry to Reading Theater, a critical writing course for students in the MFA Dramaturgy Program.
+			</div> 
+
+			<div class="paragraph" id="paragraph_2">
+				The “Questions” below are in part designed to forestall the immediate (and crippling) leap to character and normative psychology that underwrites much dramatic criticism. Aside from that corrective bias, the approach oﬀered here is not a “system” intended to replace other approaches to play analysis; I often use it together with Aristotle’s unparalleled insight into plot structure. Rather, it could be thought of as a template for the critical imagination. 
+			</div>
+
+			<div class="paragraph" id="paragraph_3">
+				In a ﬁne article on Hedda Gabler, Philip E. Larson described the nature of “a genuine performance criticism.” If criticism “is unwilling to rest content with the evaluation of ephemera,” he wrote, “[it] must attempt to describe a potential object, one that neither the dramatist, the critics, nor the reader has ever seen, or will see.”1 These “Questions” are intended to light up some of the dark matter in dramatic worlds, to illuminate the potentialities Larson points to. No matter what answers come, the very act of questioning makes an essential contribution to the enterprise of criticism.
+			</div>
+			
+			<div class="quote_origin"> —Elinor Fuchs</div>
+			
+			<div class="page_number">5</div>
+
+		</div>
+		<div class="page" id="page_2">
+			<div class="author author_2">fuchs</div>
+			<div class="paragraph quote" id="quote_2">
+				We must make the assumption that in the world of the play there are no accidents. Nothing occurs “by chance,” not even chance. In that case, nothing in the play is without signiﬁcance. Correspondingly, the play asks us to focus upon it a total awareness, to bring our attention and curiosity without the censorship of selective interpretation, “good taste,” or “correct form.” Before making judgments, we must ask questions. This is the deepest meaning of the idea, often-repeated but little understood, that the study of art shows us how to live.
+			</div>
+
+			<div class="section_heading">I. The World of the Play: First Things First</div>
+
+			<div class="paragraph" id="paragraph_4">
+				A play is not a ﬂat work of literature, not a description in poetry of another world, but is in itself another world passing before you in time and space. Language is only one part of this world. Those who think too exclusively in terms of language ﬁnd it hard to read plays. When you “see” this other world, when you experience its space-time dynamics, its architectonics, then you can ﬁgure out the role of language in it.
+			</div>
+
+			<div class="paragraph" id="paragraph_5">
+				If too tight a focus on language makes it hard to read plays, too tight a focus on character creates the opposite problem: it makes the reading too easy. To look at dramatic structures narrowly in terms of characters risks unproblematically collapsing this strange world into our own world. The stage world never obeys the same rules as ours, because in its world, nothing else is possible besides what is there: no one else lives there; no other geography is available; no alternative actions can be taken. 
+			</div>
+
+			<div class="paragraph" id="paragraph_6">
+				To see this entire world, do this literally: Mold the play into a medium-sized ball, set it before you in the middle distance, and squint your eyes. Make the ball small enough that you can see the entire planet, not so small that you lose detail, and not so large that detail overwhelms the whole. 
+			</div>
+
+			<div class="paragraph" id="paragraph_7">
+				Before you is the “world of the play.” Still squinting, ask about the space. What is space like on this planet? Interior or exterior, built or natural? Is space here conﬁned or wide open? Do you see a long passage with many “stations”? Do you see a landscape of valleys and mountains? Sea and land? Are we on an island? In a cave? In a desert or a jungle? On a country road?
+			</div>
+
+			<div class="paragraph" id="paragraph_8">
+				Now ask about the time. How does time behave on this planet? Does “time stand still”? Is time frantic and staccato on this planet? Is it leisurely, easy-going time? How is time marked on this planet? By clock? By the sun? By the sound of footsteps? What kind of time are we in? Cyclical time? Eternal time? Linear time? What kind of line? One day? One lifetime? 
+			</div>
+
+			<div class="paragraph" id="paragraph_9">
+				Ask about the climate on this planet. Do we have storms? Eclipses of the sun and moon? Do we have extreme heat? Paralyzing cold? Is the environment on this planet lush and abundant, sere and life-denying, airless and suﬀocating? What is the seasonal “feel” of this world? Autumnal? Wintry? 
+			</div>
+
+			<div class="paragraph" id="paragraph_10">
+				What is the mood on this planet? Jolly? Serious? Sad? Ironic? Sepulchral? The mood is not just a question of plot (comedies are “happy,” etc.), “tone” also contributes to mood. What is the tone of this planet? Delicate or coarse? Cerebral or passionate? Restrained or violent? How are mood and tone created on this planet? Through music? Light, sound, color, shape? What shapes? Curves? Angles?
+			</div>
+
+
+			<div class="page_number">6</div>
+
+		</div>
+		
+		<div class="page" id="page_3">
+
+			<div class="author author_3">ef’s visit to a small planet</div>
+
+			<div class="paragraph" id="paragraph_11">
+				Remember, you can’t just decide the planet is wintry or dark because you think it would look more interesting in snow or smog, at least not yet. Make sure you’re alert to what’s there; there should be actual evidence on the planet for what you report.
+			</div>
+
+			<div class="paragraph" id="paragraph_12">
+				You’re not done. In most dramatic worlds there are hidden, or at least unseen, spaces. Ask questions about them as well. What are their characteristics of space, time, tone, and mood? How do they relate to the represented world, the world you can see? 
+			</div>
+
+			<div class="paragraph" id="paragraph_13">
+				Finally, while you’re looking at this planet, listen to its “music.” Every dramatic world will have, or suggest, characteristic sounds—of mourning, celebration, children’s patter, incantation. It will alternate sounds of human and landscape, or sound and silence. Listen for the pattern of the sound.
+			</div>
+
+			
+
+			<div class="section_heading">II. The Social World of the Play: A Closer Look</div>
+
+			
+			<div class="paragraph" id="paragraph_14">
+				You are still not ready to examine the beings who inhabit this world. Before you inquire into their individual traits and motives, there are other things you need to know.
+			</div>
+
+			<div class="paragraph" id="paragraph_15">
+				Keep squinting at the planet. Is this a public world, or private? What are its class rules? Aristocratic? Popular? Mixed?
+			</div>
+
+			<div class="paragraph" id="paragraph_16">
+				In what kinds of patterns do the ﬁgures on this planet arrange themselves? Do you see groups in action, isolated individuals, both? Is there a single central ﬁgure, surrounded by a group? Are ﬁgures matched oﬀ in conﬂicting pairs? Are you seeing (and feeling) the tension of interlocking triangles? 
+			</div>
+
+			<div class="paragraph" id="paragraph_17">
+				How do ﬁgures appear on this planet? Are they inward or two-dimensional? Subtle? Exaggerated? Are they like puppets? Like clowns? Like you? (Are you sure?)
+			</div>
+
+			<div class="paragraph" id="paragraph_18">
+				How do ﬁgures dress on this planet? In rags, in gowns, in cardboard cutouts? Like us? (Are you sure?)
+			</div>
+
+			<div class="paragraph" id="paragraph_">
+				How do ﬁgures interact? By ﬁghting? Reasoned discussion?
+			</div>
+
+			<div class="paragraph" id="paragraph_19">
+				Who has power on this planet? How is it achieved? Over whom is it exercised? To what ends is it exercised?
+			</div>
+
+			<div class="paragraph" id="paragraph_20">
+				What are the language habits on this planet? Verse or prose, dialogue or monologue, certainly. But also, what kinds of language predominate—of thoughts or of feelings? And what kinds of feelings? Is language colorful or ﬂat, clipped or ﬂowing, metaphorical or logical? Exuberant or deliberate? And what about silences?
+			</div>
+
+			<div class="section_heading">III. What Changes?</div>
+
+			<div class="paragraph" id="paragraph_21">
+				You have gotten a feel for this world. Now look at it dynamically, because it moves in time. Within the “rules” of its operation, nothing stays the same. What changes in this world?
+			</div>
+
+			<div class="paragraph" id="paragraph_22">
+				Look at the ﬁrst image. Now look at the last. Then locate some striking image near the center of the play (the empty box in Kyd’s The Spanish Tragedy is a good example). To give an account of destiny on this planet range over these three markers. Why was it essential to pass through the gate of the central image to get from the ﬁrst to the last?
+			</div>
+
+			<div class="page_number">7</div>
+
+		</div>
+
+		<div class="page" id="page_4">
+			<div class="image_and_caption">
+				<img class="image" src="the_circles.png"></img>
+				<div class="caption">
+					Diagram of the circles of the sphere, refraction, and parallax. Illustration: Sir Robert Stawell Ball
+				</div>
+			</div>
+
+			<div class="paragraph" id="paragraph_23">
+				What changes in the landscape of this world? Does it move from inside to outside? From valleys to mountains? From town to wilderness?
+			</div>
+
+			<div class="paragraph" id="paragraph_24">
+				What changes in time? Does time move from dusk to night? Night to dawn? Morning to midnight? Through four seasons of a year? Through the stages of a human life? Or the stages of eternal life, from Creation to Last Judgment?
+			</div>
+
+			<div class="paragraph" id="paragraph_25">
+				What changes in language? In tone, mood, dress?
+			</div>
+
+			<div class="paragraph" id="paragraph_26">
+				All of the changes you discover will of course contribute to and reﬂect on character, but each trajectory should be seen as a signifying system on its own.
+			</div>
+
+			<div class="paragraph" id="paragraph_27">
+				What changes in the action? Have we moved from confusion to wedding (the basic plot of romantic comedy)? From threat to peaceful celebration (the basic plot of [traditional] tragicomedy)? From threat to disaster (the basic plot of tragedy)? From suﬀering to rebirth (the plot of the Passion play)? From threat to dual outcome, suﬀering for evil persons and vindication for good (the basic plot of melodrama)?
+			</div>
+
+			<div class="paragraph" id="paragraph_28">
+				What doesn’t change? Is there a stable or ﬁxed point in this world? An absolute reality? God? The grave?
+			</div>
+
+			<div class="paragraph" id="paragraph_29">
+				Squint one last time. Putting together space, time, the natural world and the social world, elements that change and those that don’t, you are discovering the “myth.” Plays are full of archetypal places—castles, gardens, forests, roads, islands, green worlds, dream worlds, storms, night scenes, and on and on. If the play starts in a palace, goes on to a moonlit forest, and returns to the palace the next day or night (which is it? day or night?), what does that progression tell you? How is the ﬁnal palace scene conditioned by the night journey into the forest? Is the world of the play at the end of the play a transformed world? Or is it the same world returned to “normal,” with minor adjustments? Worlds stand or fall on your answer.
+			</div>
+
+			<div class="page_number">8</div>
+
+		</div>
+
+
+		<div class="page" id="page_5">
+
+			<div class="section_heading">IV. Don’t Forget Yourself</div>
+
+			<div class="paragraph" id="paragraph_30">
+				Seeking what changes, don’t forget to ask what changes in you, the imaginer of worlds. Ask, what has this world demanded of me? Does it ask me for pity and fear? Does it ask me to reason? To physically participate in the action on the stage? Does it ask me to interact with other spectators? To leave the theater and take political action? To search my ethical being to the core? Maybe this world means only to entertain me, why not? But how does it make this intention known?
+			</div>
+
+			<div class="section_heading">V. Theatrical Mirrors</div>
+
+			<div class="paragraph" id="paragraph_31">
+				Important as these internal systems are, dramatic worlds don’t just speak to and within themselves; they also speak to each other. How many performances are signaling to you from inside this world? How many echoes of other dramatic worlds do they suggest? How do these additional layers of theatricality comment on what you have already discovered?
+			</div>
+
+			<div class="section_heading">VI. The Character Fits the Pattern</div>
+
+			<div class="paragraph" id="paragraph_32">
+				Only now are you really ready to examine the ﬁgures who inhabit this world. Every assumption you make about a character must reﬂect the conditions of its world, including the way psychology functions in that world. You can arrive at the most interesting version of any question about character by ﬁrst exploring the features of her theatrical planet. Characters mean only as they inhabit, enact, fulﬁll, engage a succession of sites, actions, and objects under a speciﬁc set of conditions. They are constituents of a complex artistic pattern. Find the pattern ﬁrst!
+			</div>
+
+			<div class="paragraph" id="paragraph_33">
+				Warning: Don’t permit yourself to construct a pattern that omits “singularities,” puzzling events, objects, ﬁgures, or scenes that “do not ﬁt.” Remember, there is nothing in the world of a play by accident. The puzzles may hold the key. Assume that the dramatic world is entirely conscious, determinate, limited. Give an account of that world that attempts to consider the role of every element in that world—visual, aural, temporal, tonal, ﬁgural. Become curious as each element is revealed as a player in the play. Be someone who is aroused to meaning.
+			</div>
+
+			<div class="paragraph" id="paragraph_34">
+				Of course you can construct meaning in this world in many diﬀerent ways. Construct it in the most inclusive way you can. There will still be more to see.
+			</div>
+
+			<div class="section_heading citations">Note</div>
+
+			<div class="citation">
+				1. Philip E. Larson, “French Farce Conventions and the Mythic Story Pattern in <span class="italic">Hedda Gabler</span>: A Performance Criticism,” in <span class="italic">Contemporary Approaches to Ibsen</span> (Oslo: Universitetsforlaget AS, 1985), 202.
+			</div>
+
+		</div>
+		</div>
+
+		<div class='question_maker'>
+			<div class='black_card'>
+				<textarea class="user_input user_input_question" type="text" placeholder="Question"></textarea>
+				<div class="q_a_divider"></div>
+				<textarea class="user_input user_input_answer" placeholder="Answer (optional)"></textarea>
+				<div class="user_input add_question_button">Publish</div>
+			</div>
+			<!-- button class="delete_text_button"> Delete Text! </button -->
+			<textarea name="question_search" placeholder="Search Questions..." class="user_input user_input_search user_input_question_search"></textarea>
+			<textarea name="answer_search" placeholder="Search Answers..." class="user_input user_input_search user_input_answer_search"></textarea>
+			<div class="display"></div>
+		</div>
+
+	</div>
 </body>
 </html>
