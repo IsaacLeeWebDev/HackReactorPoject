@@ -41,8 +41,14 @@
 
 -[ ] Highlighting/Selecting PDFs: 7
 	-[X] Parse PDF for '?'s: 5
-	-[ ] Make '?'s clickable: 2.5
 	-[ ] Add clickable '?'s to questions list: 2.5
+			-[X] Make '?'s clickable: 2.5
+			-[X] Put question text in black card that appears
+			-[ ] Make close button work
+			-[ ] Make new publish button work
+				-[ ] publish question
+				-[ ] clear text fields
+				-[ ] close new black card
 	-[ ] Highlight Text Passage: 3.5
 		-[ ] Create Question based on Highlight: 2.5
 		-[ ] Add to Answer of previously created Question based on Highlighted passage: 2.5
@@ -53,17 +59,20 @@
 		-[X] Auto-growing question field
 			-[X] adjusts size on keyup
 			-[X] resets size after Publish
-	-[ ] Edit question: 2.5
 	-[X] Delete question: 2.5
 	-[X] Add answer: 2
 		-[X] Adds answer to question on Publish
 		-[X] Auto-growing question field
 			-[X] adjusts size on keyup
 			-[X] resets size after Publish
-	-[ ] Edit answer: 2
-	-[ ] Delete Answer: 2
-	-[X] Search Questions on keyup
-	-[X] Search Answers on keyup
+	-[ ] Question Viewer Module
+		-[ ] Edit answer: 2
+		-[ ] Delete Answer: 2
+		-[ ] Edit question: 2.5
+		-[ ] Delete question
 	-[ ] Truncated Question Cards
 	-[ ] Long-Word-Wrapping Question Cards
 	-[ ] See More
+	-[X] Search Questions on keyup
+	-[X] Search Answers on keyup
+

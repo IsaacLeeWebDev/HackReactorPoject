@@ -17,7 +17,7 @@ const findSentences = function(paragraph) {
 				currentSentence += paragraph[i + 1];
 				i++
 			};
-			sentenceArray.push('<span class="sentence question">' + currentSentence + '</span>');
+			sentenceArray.push('<span class="sentence reader_question">' + currentSentence + '</span>');
 			currentSentence = '';
 		}
 	};
@@ -27,7 +27,7 @@ const findSentences = function(paragraph) {
 const getAllStoredQuestions = function() {
 	for(let key in localStorage) {
 		if(nonStorageArray.indexOf(key) === -1) { 
-			$('.display:first').append($('<div class="display_item" data-storage-key="'+key+'"><div>Your Question on: ' + Date() + '</div><div class="questionDiv" id="'+ key + localStorage.getItem(key) + 'QuestionDiv">' + key + '</div><div>Your Answer:</div><div class="answerDiv" id="'+key + localStorage.getItem(key) + 'answerDiv">' +  localStorage.getItem(key) + '</div><div class="delete_text_button">Delete question</div></div>'));
+			$('.display:first').append($('<div class="display_item" data-storage-key="'+key+'"><div class="date_div">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div>Your Answer:</div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="delete_text_button">Delete question</div></div>'));
 			$('.delete_text_button').click(function() {
 				let deletedItem = $(this)[0].parentNode.children[1].textContent;
 			    localStorage.removeItem( deletedItem ); // grab the title and plop here
@@ -47,11 +47,10 @@ const filterQuetions = function() {
 		for(key in localStorage) {
 			if(nonStorageArray.indexOf(key) === -1) {
 				if(key.indexOf(filterValQuestion) !== -1 && localStorage[key].indexOf(filterValAnswer) !== -1) {
-					$('.display:first').append($('<div class="display_item" data-storage-key="'+key+'"><div>Your Question on: ' + Date() + '</div><div class="questionDiv" id="'+ key + localStorage.getItem(key) + 'QuestionDiv">' + key + '</div><div>Your Answer:</div><div class="answerDiv" id="'+key + localStorage.getItem(key) + 'answerDiv">' +  localStorage.getItem(key) + '</div><div class="delete_text_button">Delete question</div></div>'));
+					$('.display:first').append($('<div class="display_item" data-storage-key="'+key+'"><div class="date_div">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div>Your Answer:</div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="delete_text_button">Delete question</div></div>'));
 					$('.delete_text_button').click(function() {
 						let deletedItem = $(this)[0].parentNode.children[1].textContent;
 					    localStorage.removeItem( deletedItem ); // grab the title and plop here
-					    alert('item deleted? check the console');
 					    $($(this)[0].parentNode).hide();
 					});
 				};
@@ -62,18 +61,43 @@ const filterQuetions = function() {
 	};
 };
 
+const triggerResize = function(n) {
+
+	if(n === undefined) {
+		n = 0;
+	};
+
+	$('body').height(window.innerHeight);
+	$('.content_area').height($('body').height() * 0.92 - 20 - n);
+};
+
+const autoGrowTextareas = function (context) {
+	return function(context) {
+		if ($(context).outerHeight() > context.scrollHeight){
+		    $(context).height(1)
+		};
+		while ($(context).outerHeight() < context.scrollHeight + parseFloat($(context).css("borderTopWidth")) + parseFloat($(context).css("borderBottomWidth"))){
+		    $(context).height($(context).height() + 5)
+		};
+	};
+};
+
 $(document).ready(function() {
 
 	getAllStoredQuestions();
 
-	$('.add_question_button').click(function() {
+	$('.on_click_black_card').hide();
 
+	$('.publish_button').click(function() {
 
-		let inputKey = $('.user_input_question').val();
-		let inputValue = $('.user_input_answer').val();
+		let $user_input_question = $(this.parentNode.children[0])
+		let $user_input_answer = $(this.parentNode.children[2])
 
-		$('.user_input_question').val('');
-		$('.user_input_answer').val('');
+		let inputKey = $user_input_question.val();
+		let inputValue = $user_input_answer.val();
+
+		$user_input_question.val('');
+		$user_input_answer.val('');
 
 		localStorage.setItem(inputKey, inputValue);
 
@@ -82,7 +106,7 @@ $(document).ready(function() {
 
 		// alert("value from local storage " + localStorage.getItem("testStorage") );
 		
-    	let itemHtml = '<div class="display_item" data-storage-key="'+inputKey+'"><div>Your Question on: ' + Date() + '</div><div class="questionDiv" id="'+inputKey + localStorage.getItem(inputKey) + 'QuestionDiv">' + inputKey + '</div><div>Your Answer:</div><div class="answerDiv" id="'+inputKey + localStorage.getItem(inputKey) + 'answerDiv">' +  localStorage.getItem(inputKey) + '</div><div class="delete_text_button">Delete question</div></div>';
+    	let itemHtml = '<div class="display_item" data-storage-key="' + inputKey + '"><div class="date_div">Your Question on: ' + Date() + '</div><div class="question_div" id="'+inputKey + localStorage.getItem(inputKey) + 'question_div">' + inputKey + '</div><div>Your Answer:</div><div class="answer_div" id="'+inputKey + localStorage.getItem(inputKey) + 'answer_div">' +  localStorage.getItem(inputKey) + '</div><div class="delete_text_button">Delete question</div></div>';
 		$(itemHtml).insertBefore($('.display')[0].children[0]);
 		// $('.display:first').append($(itemHtml));
 
@@ -92,8 +116,8 @@ $(document).ready(function() {
 		     $($(this)[0].parentNode).hide();
 		});
 
-		$('.user_input_question').blur();
-		$('.user_input_answer').blur();
+		$user_input_question.blur();
+		$user_input_answer.blur();
 	});
 
 
@@ -104,13 +128,9 @@ $(document).ready(function() {
 	};
 
 	//autogrow textareas
-	$('textarea').bind('paste input', function () {
-	    if ($(this).outerHeight() > this.scrollHeight){
-	        $(this).height(1)
-	    };
-	    while ($(this).outerHeight() < this.scrollHeight + parseFloat($(this).css("borderTopWidth")) + parseFloat($(this).css("borderBottomWidth"))){
-	        $(this).height($(this).height() + 5)
-	    };
+	$('textarea').bind('paste input', function() {
+		let theTextarea = this;
+		autoGrowTextareas()(theTextarea);
 	});
 
 	$('.user_input_question_search').blur(function(){
@@ -125,6 +145,10 @@ $(document).ready(function() {
 		};
 	});
 
+	$('.user_input_question').focus(function(){
+		//TODO: make the divider light up
+	});
+
 	$('.user_input_question').blur(function(){
 		if($(this).val() === '') {
 			$(this).height('49px');
@@ -137,6 +161,10 @@ $(document).ready(function() {
 		};
 	});
 
+	$('.user_input_question').focus(function(){
+		//TODO: make the divider light up
+	});
+
 	$('.user_input_question_search').keyup(function() {
 		filterQuetions();
 	});
@@ -145,9 +173,46 @@ $(document).ready(function() {
 		filterQuetions();
 	});
 	
-	$('body').height(window.innerHeight);
-	$('.content_area').height($('body').height() - 110)
+
+	triggerResize();
+
+
+	// $(document).bind('fullscreenchange', function() {
+	// 	$('body').height(window.innerHeight);
+	// 	$('.content_area').height($('body').height() * 0.92 - 20)
+	// });
 	// $('.display_pdf').height($('body').height() - 100)
 	// $('.question_maker').height($('body').height() - 100)
+	$('.display_item').click(function(){
+		focusQuestionCard = $(this);
+		focusQuestionCard.css('background-color: green');
+	});
 
+	$('.reader_mode_button').click(function(){
+		$('.content_area').removeClass('balanced_mode');
+		$('.content_area').removeClass('question_mode');
+		$('.content_area').addClass('reader_mode');
+	});
+
+	$('.balanced_mode_button').click(function(){
+		$('.content_area').removeClass('reader_mode');
+		$('.content_area').removeClass('question_mode');
+		$('.content_area').addClass('balanced_mode');
+	});
+
+	$('.question_mode_button').click(function(){
+		$('.content_area').removeClass('balanced_mode');
+		$('.content_area').removeClass('reader_mode');
+		$('.content_area').addClass('question_mode');
+	});
+
+	$('.reader_question').click(function(){
+		let $reader_question_text = $(this).text();
+		let $hidden_question_field = $('.on_click_black_card')[0].children[1];
+		$($hidden_question_field).text($reader_question_text);
+		$('.on_click_black_card').slideDown(200, function() {
+			triggerResize($('.on_click_black_card').height())
+			autoGrowTextareas()($hidden_question_field);
+		});
+	});
 }); // end document.ready

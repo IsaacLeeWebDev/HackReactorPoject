@@ -41,6 +41,25 @@ body {
 	box-shadow: 0px 0px 100px grey;
 }
 
+.black_card_closer_wrapper {
+	display: flex;
+	justify-content: flex-end;
+    margin-top: 12px;
+    margin-right: 21px;
+}
+
+.black_card_closer{
+	color: white;
+	font-family: "Trebuchet MS";
+	font-size: 14;
+	cursor: pointer;
+}
+
+.black_card_closer:hover {
+	color: red;
+}
+
+
 .content_area {
 	height: inherit;
 }
@@ -126,7 +145,7 @@ body {
 	padding: 10px 9px 8px 9px;
 }
 
-.add_question_button {
+.publish_button {
 	background-color: black;
 	cursor: pointer;
 	color: white;
@@ -135,7 +154,7 @@ body {
 	text-align: center
 }
 
-.add_question_button:hover {
+.publish_button:hover {
 	background-color: #000033;
 	color: white;
 }
@@ -154,7 +173,7 @@ body {
 	background-color: white;
 }
 
-.questionDiv {
+.question_div {
 	background-color: white;
 	font-size: 32pt;
 	margin-bottom: 20px;
@@ -162,7 +181,7 @@ body {
 	border-bottom: 1px solid #999;
 }
 
-.answerDiv {
+.answer_div {
 	background-color: white;
 	font-size: 20pt;
 	padding: 8px;
@@ -258,7 +277,7 @@ body {
 	padding: 0;
 }
 
-.question {
+.reader_question {
 	border: 0px;
 	border-bottom: 2px dotted lightblue;
 }
@@ -266,7 +285,7 @@ body {
 .sentence:hover {
 }
 
-.question:hover {
+.reader_question:hover {
 	background-color: lightblue;
 	cursor: pointer;
 }
