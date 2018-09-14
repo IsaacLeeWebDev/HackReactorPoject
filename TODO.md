@@ -95,13 +95,13 @@
 
 -[ ] Gold Plates:
 	-[X] Toggle display helper tooltips on reader highlight/unselect
+	-[X] Adjust height of input fields on window resize
 	-[ ] Fix the typo in your project name
 	-[ ] Organize the TODO list by priority, number of child tasks, and then alphabetically
 	-[ ] Truncated Question Cards
 	-[ ] Long-Word-Wrapping Question Cards
 	-[ ] Sensible black card font sizes
 	-[ ] As a card is appended to div.display after answer edit, show afterglow
-	-[X] Adjust height of input fields on window resize
 	-[ ] Change the text of the Edit Answer Button to be "Add Answer" when there's no answer
 	-[ ] Customizable Frontend Themes
 	-[ ] Clear placeholder text on focus, readd on blur
