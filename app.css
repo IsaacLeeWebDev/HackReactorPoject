@@ -95,6 +95,11 @@ body {
 	color: red;
 }
 
+.question_viewer_module {
+	background-color: white;
+	display: none;
+}
+
 
 .content_area {
 	height: inherit;
@@ -207,6 +212,48 @@ body {
 	margin: 20px 2%;
 	padding: 20px;
 	background-color: white;
+	cursor: pointer;
+}
+
+.white_card:hover {
+    box-shadow: 0px 0px 10px 5px lightblue inset;
+}
+
+#moduleCopy:hover {
+	box-shadow: none;
+	cursor: default;
+}
+
+.button_row {
+	margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button_row_button {
+	width: fit-content;
+	padding: 8px;
+	cursor: pointer;
+	font-family: "Trebuchet MS";
+	font-weight: 700;
+}
+
+.delete_question_button {
+	box-shadow: 0 0 3px 2px red inset;
+}
+
+
+.delete_question_button:hover {
+	background-color: red;
+	color: white;
+}
+
+.edit_answer_button {
+	box-shadow: 0 0 3px 3px lightblue inset;
+}
+.edit_answer_button:hover {
+	background-color: lightblue;
+	color: white;
 }
 
 .question_div {

@@ -27,27 +27,50 @@ const findSentences = function(paragraph) {
 const getAllStoredQuestions = function() {
 	for(let key in localStorage) {
 		if(nonStorageArray.indexOf(key) === -1) { 
-			$('.display:first').append($('<div class="white_card" data-storage-key="'+key+'"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="delete_text_button" style="display:none">Delete question</div></div>'));
-			$('.delete_text_button').click(function() {
-				let deletedItem = $(this)[0].parentNode.children[1].textContent;
-			    localStorage.removeItem( deletedItem ); // grab the title and plop here
-			    $($(this)[0].parentNode).hide();
-			});
+			$('.display:first').append($('<div class="white_card" data-storage-key="'+key+'"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="button_row" style="display:none"><div class="button_row_button edit_answer_button">Edit Answer</div><div class="button_row_button delete_question_button">Delete Question</div></div></div></div>'));
+			$('.delete_question_button').click(deleteWhiteCard);
 		};
 	};
 };
 
+const initializeWhiteCard = function() {
+	let moduleCopy = $(this).clone();
+	moduleCopy.attr('id', 'moduleCopy');
+	$('#qvm_inner_div').html('');
+	$('#qvm_inner_div').append(moduleCopy);
+	$('#question_viewer_module').hide();
+	$('#question_viewer_module').slideDown();
+	$(moduleCopy[0].children[0]).show();
+	$(moduleCopy[0].children[4]).show();
+	$(moduleCopy[0].children[2].children[0]).show();
+	$(moduleCopy[0].children[4].children[1]).click(deleteWhiteCard);
+	triggerResize(moduleCopy.height() + 55)
+};
+
+const deleteWhiteCard = function() {
+	let deletedItem = $(this)[0].parentNode.parentNode.children[1].textContent;
+     localStorage.removeItem(deletedItem); 
+     for(let i = 0; i < $('.white_card').length; i++) {
+     	if($('.white_card')[i].children[1].textContent === deletedItem) {
+     		$($('.white_card')[i]).slideUp(200, function() {
+     			$($('.white_card')[i]).html('');
+     		});
+     	};
+     };
+    triggerResize();
+};
 
 const filterQuetions = function() {
-	$('.display').html('')
 	let filterValQuestion = $('.user_input_question_search').val();
 	let filterValAnswer = $('.user_input_answer_search').val();
 	if (filterValQuestion !== '' || filterValAnswer !== '') {
+		$('.display').html('<div id="first"></div>');
 		for(key in localStorage) {
 			if(nonStorageArray.indexOf(key) === -1) {
 				if(key.indexOf(filterValQuestion) !== -1 && localStorage[key].indexOf(filterValAnswer) !== -1) {
-					$('.display:first').append($('<div class="white_card" data-storage-key="'+key+'"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="delete_text_button" style="display:none">Delete question</div></div>'));
-					$('.delete_text_button').click(function() {
+					$('<div class="white_card" data-storage-key="'+key+'"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="button_row" style="display:none"><div class="button_row_button edit_answer_button">Edit Answer</div><div class="button_row_button delete_question_button">Delete Question</div></div></div>').insertBefore($('.display')[0].children[0]);
+					$($('.display')[0].children[0]).click(initializeWhiteCard)
+					$('.delete_question_button').click(function() {
 						let deletedItem = $(this)[0].parentNode.children[1].textContent;
 					    localStorage.removeItem( deletedItem ); // grab the title and plop here
 					    $($(this)[0].parentNode).hide();
@@ -56,6 +79,7 @@ const filterQuetions = function() {
 			};
 		};
 	} else {
+		$('.display').html('')
 		getAllStoredQuestions();
 	};
 };
@@ -65,7 +89,7 @@ const triggerResize = function(n) {
 		n = 0;
 	};
 	$('body').height(window.innerHeight);
-	$('.content_area').height($('body').height() * 0.92 - 40 - n);
+	$('.content_area').height($('body').height() * 0.92 - 55 - n);
 };
 
 const autoGrowTextareas = function (context) {
@@ -76,6 +100,9 @@ const autoGrowTextareas = function (context) {
 		while ($(context).outerHeight() < context.scrollHeight + parseFloat($(context).css("borderTopWidth")) + parseFloat($(context).css("borderBottomWidth"))){
 		    $(context).height($(context).height() + 5)
 		};
+		if($(context).val() === '') {
+			$(context).blur()
+		}; 
 	};
 };
 
@@ -113,15 +140,17 @@ $(document).ready(function() {
 			$('.black_card_closer').click();
 		};
 		
-    	let itemHtml = '<div class="white_card" data-storage-key="' + inputKey + '"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+inputKey + localStorage.getItem(inputKey) + 'question_div">' + inputKey + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+inputKey + localStorage.getItem(inputKey) + 'answer_div">' +  localStorage.getItem(inputKey) + '</div><div class="delete_text_button" style="display:none">Delete question</div></div>';
+    	let itemHtml = '<div class="white_card" data-storage-key="' + inputKey + '"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+inputKey + localStorage.getItem(inputKey) + 'question_div">' + inputKey + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+inputKey + localStorage.getItem(inputKey) + 'answer_div">' +  localStorage.getItem(inputKey) + '</div><div class="button_row" style="display:none"><div class="button_row_button edit_answer_button">Edit Answer</div><div class="button_row_button delete_question_button">Delete Question</div></div></div>';
 		$(itemHtml).insertBefore($('.display')[0].children[0]);
 		// $('.display:first').append($(itemHtml));
 
-		$('.delete_text_button').click(function() {
+		$('.delete_question_button').click(function() {
 			let deletedItem = $(this)[0].parentNode.children[1].textContent;
 		     localStorage.removeItem( deletedItem ); // grab the title and plop here
 		     $($(this)[0].parentNode).hide();
 		});
+
+		$($('.display')[0].children[0]).click(initializeWhiteCard);
 
 		$user_input_question.blur();
 		$user_input_answer.blur();
@@ -190,10 +219,6 @@ $(document).ready(function() {
 	// });
 	// $('.display_pdf').height($('body').height() - 100)
 	// $('.question_maker').height($('body').height() - 100)
-	$('.white_card').click(function(){
-		focusQuestionCard = $(this);
-		focusQuestionCard.css('background-color: green');
-	});
 
 	$('.reader_mode_button').click(function(){
 		$('.content_area').removeClass('balanced_mode');
@@ -216,19 +241,32 @@ $(document).ready(function() {
 	$('.reader_question').click(function() {
 		let $reader_question_text = $(this).text().slice($(this).text().search(/\S/g));
 		let $question_field;
+		let $answer_field;
 		if($('.content_area').hasClass('balanced_mode')) { // populate question log black card
-			
 			$question_field = $('#question_log_black_card_user_input_question');
-			$($question_field).val($reader_question_text);
-			autoGrowTextareas()($question_field[0]);
+			$answer_field = $('#question_log_black_card_user_input_answer')
+			triggerResize();
 		} else { // show floating black card
 			$question_field = $('#floating_black_card_user_input_question');
-			$($question_field).val($reader_question_text);
+			$answer_field = $('#floating_black_card_user_input_answer')
 			$('.floating_black_card').slideDown(200, function() {
-				triggerResize($('.floating_black_card').height())
-				autoGrowTextareas()($question_field[0]);
+				triggerResize($('.floating_black_card').height() + 20);
 			});
 		};
+		$($answer_field).val('');
+		$($question_field).val('');			
+		$($answer_field).blur();
+		$($question_field).blur();
+		$($question_field).val($reader_question_text);
+		for(key in localStorage) {
+			if(nonStorageArray.indexOf(key) === -1) {
+				if($reader_question_text === key) {
+					$($answer_field).val(localStorage[key]);
+				};
+			};
+		};
+		autoGrowTextareas()($question_field[0]);
+		autoGrowTextareas()($answer_field[0]);
 	});
 
 	$('.black_card_closer').click(function(){
@@ -242,5 +280,7 @@ $(document).ready(function() {
 	$(window).resize(function(){
 		triggerResize();
 	});
+
+	$('.white_card').click(initializeWhiteCard);
 
 }); // end document.ready

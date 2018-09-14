@@ -41,21 +41,22 @@
 
 -[ ] The Reader: 7
 	-[X] Parse PDF for '?'s: 5
-	-[ ] Adding clickable '?'s to questions list: 2.5
+	-[X] Adding clickable '?'s to questions list: 2.5
 			-[X] Make '?'s clickable: 2.5
-			-[ ] Reader Mode functionality
-				-[ ] Populates The Floating Black Card
+			-[X] Reader Mode functionality
+				-[X] Populates The Floating Black Card
 					-[X] FBC question field gets clicked question
-					-[ ] FBC answer field gets any previous answer
+					-[X] FBC answer field gets any previous answer
+					-[X] All fields resized appropriately
 				-[X] Make close button work
 				-[X] Make new publish button work
 					-[X] publish question
 					-[X] clear text fields
 					-[X] close new black card
-			-[ ] Balanced Mode functionality
+			-[X] Balanced Mode functionality
 				-[X] Populates The Black Card
 					-[X] Question gets clicked question
-					-[ ] Answer gets any previous answer 
+					-[X] Answer gets any previous answer 
 	-[ ] Highlight Text Passage: 3.5
 		-[ ] Create Question based on Highlight: 2.5
 		-[ ] Add to Answer of previously created Question based on Highlighted passage: 2.5
@@ -74,13 +75,22 @@
 				-[X] Question
 				-[X] Answer
 	-[ ] Question Viewer Module
+		-[X] Open on click of White Card
 		-[ ] Edit answer: 2
-		-[ ] Delete Answer: 2
-		-[ ] Edit question: 2.5
-		-[ ] Delete question
+		-[X] Delete question
 	-[X] Search Questions on keyup
 	-[X] Search Answers on keyup
+
+-[X] Navigation bar / mode picker
+	-[X] Activates reader mode
+	-[X] Activates balanced mode
+	-[X] Activates question mode
+
+-[ ] Gold Plates:
 	-[ ] Truncated Question Cards
 	-[ ] Long-Word-Wrapping Question Cards
 	-[ ] See More
+	-[ ] Sensible black card font sizes
+	-[ ] jQuery Animations on mode nav button clicks
+	-[ ]
 
