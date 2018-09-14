@@ -61,7 +61,7 @@
 		-[ ] Create Question based on Highlight: 2.5
 		-[ ] Add to Answer of previously created Question based on Highlighted passage: 2.5
 
--[ ] Question Logger: 7
+-[X] Question Logger: 7
 	-[X] The Black Card
 		-[X] Publish Button: 2
 			-[X] Makes White Card on click
@@ -74,10 +74,18 @@
 			-[X] fields adjusts size on keyup
 				-[X] Question
 				-[X] Answer
+			-[ ] Updates div.display
+				-[ ] Handles old white card
+					-[X] Checks div.display for child with question text
+						-[X] clears child html
+						-[X] hides child
+				-[ ] Appends new white card to top of list
+					-[ ] BUG: Appends new white card to top AND bottom
 	-[ ] Question Viewer Module
 		-[X] Open on click of White Card
-		-[ ] Edit answer: 2
+		-[X] Edit answer: 2
 		-[X] Delete question
+		-[ ] Close button
 	-[X] Search Questions on keyup
 	-[X] Search Answers on keyup
 
@@ -87,10 +95,40 @@
 	-[X] Activates question mode
 
 -[ ] Gold Plates:
+	-[ ] Organize the TODO list by number of child tasks and then alphabetically
 	-[ ] Truncated Question Cards
 	-[ ] Long-Word-Wrapping Question Cards
-	-[ ] See More
 	-[ ] Sensible black card font sizes
-	-[ ] jQuery Animations on mode nav button clicks
-	-[ ]
+	-[ ] As a card is appended to div.display after answer edit, show afterglow
+	-[X] Adjust height of input fields on window resize
+	-[ ] Change the text of the Edit Answer Button to be "Add Answer" when there's no answer
+	-[ ] Customizable Frontend Themes
+	-[ ] Remove whitespace from new questions
+		-[ ] Strip external whitespace
+		-[ ] Remove newlines
+	-[ ] jQuery Animations 
+		-[ ] on mode changes
+		-[ ] slideUp/slideDown question log black card
+		-[ ] slideUp/slideDown question log search bars
+		-[ ] on load
+			-[ ] content area appears in an interesting way
+			-[ ] question log white cards fade/ slightly swing in in sequence
+			-[ ] question log black card "turns on" like a DOS box or old TV
+	-[ ] autocomplete fields
+		-[ ] black cards
+			-[ ] question log
+			-[ ] floating
+	-[ ] question log black card has "blue mode" button
+		-[ ] essentially its fields become a replacement for the search 
+	-[ ] Cross-PDF interaction
+		-[ ] Proof-of-concept version
+			-[ ] A play
+			-[ ] Navigation between the play and "EF's visit..." pdf
+			-[ ] pdf-specific data within white cards
+				-[ ] multiple pdf-specific categorizations of a white card.
+		-[ ] PDF to HTML converter integration
+	-[ ] Refactor the stinking code
+		-[ ] Use classes!
+	-[ ] Login page
+		-[ ] Refactor database to have username at the top level
 

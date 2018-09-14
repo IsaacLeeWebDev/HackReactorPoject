@@ -29,6 +29,7 @@ const getAllStoredQuestions = function() {
 		if(nonStorageArray.indexOf(key) === -1) { 
 			$('.display:first').append($('<div class="white_card" data-storage-key="'+key+'"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="button_row" style="display:none"><div class="button_row_button edit_answer_button">Edit Answer</div><div class="button_row_button delete_question_button">Delete Question</div></div></div></div>'));
 			$('.delete_question_button').click(deleteWhiteCard);
+			$('.edit_answer_button').click(editWhiteCardAnswer);
 		};
 	};
 };
@@ -44,6 +45,7 @@ const initializeWhiteCard = function() {
 	$(moduleCopy[0].children[4]).show();
 	$(moduleCopy[0].children[2].children[0]).show();
 	$(moduleCopy[0].children[4].children[1]).click(deleteWhiteCard);
+	$(moduleCopy[0].children[4].children[0]).click(editWhiteCardAnswer);
 	triggerResize(moduleCopy.height() + 55)
 };
 
@@ -57,7 +59,6 @@ const deleteWhiteCard = function() {
      		});
      	};
      };
-    triggerResize();
 };
 
 const filterQuetions = function() {
@@ -70,11 +71,8 @@ const filterQuetions = function() {
 				if(key.indexOf(filterValQuestion) !== -1 && localStorage[key].indexOf(filterValAnswer) !== -1) {
 					$('<div class="white_card" data-storage-key="'+key+'"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="button_row" style="display:none"><div class="button_row_button edit_answer_button">Edit Answer</div><div class="button_row_button delete_question_button">Delete Question</div></div></div>').insertBefore($('.display')[0].children[0]);
 					$($('.display')[0].children[0]).click(initializeWhiteCard)
-					$('.delete_question_button').click(function() {
-						let deletedItem = $(this)[0].parentNode.children[1].textContent;
-					    localStorage.removeItem( deletedItem ); // grab the title and plop here
-					    $($(this)[0].parentNode).hide();
-					});
+					$('.delete_question_button').click(deleteWhiteCard);
+					$('.edit_answer_button').click(editWhiteCardAnswer);
 				};
 			};
 		};
@@ -93,7 +91,7 @@ const triggerResize = function(n) {
 };
 
 const autoGrowTextareas = function (context) {
-	return function(context) {
+	return function(context) { // this closure may be arbitrary...
 		if ($(context).outerHeight() > context.scrollHeight){
 		    $(context).height(1)
 		};
@@ -106,6 +104,15 @@ const autoGrowTextareas = function (context) {
 	};
 };
 
+const editWhiteCardAnswer = function() {
+	$(this.parentNode.parentNode).hide();
+	$('.floating_black_card').show();
+	$('#floating_black_card_user_input_question').val($(this.parentNode.parentNode.children[1]).text());
+	$('#floating_black_card_user_input_answer').val($(this.parentNode.parentNode.children[3]).text());
+ 	$(window).resize();
+	triggerResize($('.floating_black_card').height() + 20);
+};
+
 $(document).ready(function() {
 
 	getAllStoredQuestions();
@@ -113,10 +120,14 @@ $(document).ready(function() {
 	$('<div class="document_end"></div>').insertAfter($('.page:last'));
 	$('.page:last').css('margin-bottom', '8px');
 
+	// TODO: Break up this function. It does too much.
+		// click binding can be offloaded to another function
 	$('.publish_button').click(function() {
-
 		let $user_input_question;
 		let $user_input_answer;
+
+		// detects which publish button you're using
+		// TODO: just use IDs, what are you doing with this vanilla DOM traversal?!
 
 		if($(this.parentNode).hasClass('floating_black_card') === true) {
 			$user_input_question = $(this.parentNode.children[1])
@@ -125,6 +136,7 @@ $(document).ready(function() {
 			$user_input_question = $(this.parentNode.children[0])
 			$user_input_answer = $(this.parentNode.children[2])
 		}
+
 		let inputKey = $user_input_question.val();
 		let inputValue = $user_input_answer.val();
 
@@ -133,23 +145,25 @@ $(document).ready(function() {
 
 		localStorage.setItem(inputKey, inputValue);
 
-
-		console.log(inputKey, inputValue);
-
 		if($(this.parentNode).hasClass('floating_black_card') === true) {
 			$('.black_card_closer').click();
 		};
-		
+
+		// TODO: Break this up into an array of strings and variables
+			// Better yet, make White Cards a class of their own.
     	let itemHtml = '<div class="white_card" data-storage-key="' + inputKey + '"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+inputKey + localStorage.getItem(inputKey) + 'question_div">' + inputKey + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+inputKey + localStorage.getItem(inputKey) + 'answer_div">' +  localStorage.getItem(inputKey) + '</div><div class="button_row" style="display:none"><div class="button_row_button edit_answer_button">Edit Answer</div><div class="button_row_button delete_question_button">Delete Question</div></div></div>';
+
+		for(let i = 0; i < $('.display')[0].children.length; i++) {
+			if($(itemHtml)[0].children[1].textContent === $('.display')[0].children[i].children[1].textContent) {
+				$($('.display')[0].children[i]).html('');
+				$($('.display')[0].children[i]).hide();
+			};
+		};
+
 		$(itemHtml).insertBefore($('.display')[0].children[0]);
-		// $('.display:first').append($(itemHtml));
 
-		$('.delete_question_button').click(function() {
-			let deletedItem = $(this)[0].parentNode.children[1].textContent;
-		     localStorage.removeItem( deletedItem ); // grab the title and plop here
-		     $($(this)[0].parentNode).hide();
-		});
-
+		$('.delete_question_button').click(deleteWhiteCard);
+		$('.edit_answer_button').click(editWhiteCardAnswer);
 		$($('.display')[0].children[0]).click(initializeWhiteCard);
 
 		$user_input_question.blur();
@@ -278,9 +292,35 @@ $(document).ready(function() {
 	});
 
 	$(window).resize(function(){
+
 		triggerResize();
+
+		let value1 = $('#floating_black_card_user_input_question').val()
+		let value2 =$('#floating_black_card_user_input_answer').val()
+		let value3 =$('#question_log_black_card_user_input_question').val()
+		let value4 =$('#question_log_black_card_user_input_answer').val()
+
+		$('#floating_black_card_user_input_question').val('');
+		$('#floating_black_card_user_input_answer').val('');
+		$('#question_log_black_card_user_input_question').val('');
+		$('#question_log_black_card_user_input_answer').val('');
+
+		$('#floating_black_card_user_input_question').blur();
+		$('#floating_black_card_user_input_answer').blur();
+		$('#question_log_black_card_user_input_question').blur();
+		$('#question_log_black_card_user_input_answer').blur();
+
+		$('#floating_black_card_user_input_question').val(value1);
+		$('#floating_black_card_user_input_answer').val(value2);
+		$('#question_log_black_card_user_input_question').val(value3);
+		$('#question_log_black_card_user_input_answer').val(value4);
+
+		autoGrowTextareas()($('#floating_black_card_user_input_question')[0]);
+		autoGrowTextareas()($('#floating_black_card_user_input_answer')[0]);
+		autoGrowTextareas()($('#question_log_black_card_user_input_question')[0]);
+		autoGrowTextareas()($('#question_log_black_card_user_input_answer')[0]);
+		// TODO: adjust size of input fields on resize
 	});
 
 	$('.white_card').click(initializeWhiteCard);
-
 }); // end document.ready

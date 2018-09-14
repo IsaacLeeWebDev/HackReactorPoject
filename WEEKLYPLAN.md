@@ -13,22 +13,23 @@
 
 -[X] Create "Upload PDF" feature. CANCELLED
 -[X] Create "Delete PDF" feature. CANCELED
--[ ] Create  the "questions list" features
+-[X] Create  the "questions list" features
 
 ### Wednesday
 
--[ ] Work on Parse PDF feature
-	-[ ] Make questions in a PDF selectable 
-	-[ ] Make a highlight of PDF passages trigger the option to create questions/answers
+-[X] Work on Parse PDF feature
+	-[X] Make questions in a PDF selectable 
+	-[X] Make a highlight of PDF passages trigger the option to create questions/answers
 
--[ ] Display updated question list after interacting with PDF.
+-[X] Display updated question list after interacting with PDF.
 
 ### Thursday
 
--[ ] Front-End Polishing
-	-[ ] jQuery Animations
+-[X] Front-End Polishing
+	-[X] jQuery Animations
 	-[ ] Adjustable fonts/themes
 
 ### Friday
 
+-[ ] Finish up Recursion Assignment
 -[ ] Bugfixing/Gold-plating. Prepare to present.
