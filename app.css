@@ -95,11 +95,47 @@ body {
 	color: red;
 }
 
+.module_copy_closer_wrapper {
+	display: flex;
+	justify-content: flex-end;
+    margin-top: 0;
+    margin-right: 12px;
+}
+
+.module_copy_closer{
+	color: black;
+	font-family: "Trebuchet MS";
+	font-size: 14;
+	cursor: pointer;
+}
+
+.module_copy_closer:hover {
+	color: red;
+}
+
 .question_viewer_module {
 	background-color: white;
 	display: none;
 }
 
+#help {
+	display: none;
+    justify-content: space-around;
+}
+
+#q_help {
+    padding: 5px;
+    background-color: black;
+    color: white;
+    font-family: "Trebuchet MS";
+}
+
+#a_help {
+    padding: 5px;
+    background-color: white;
+    color: black;
+    font-family: "Trebuchet MS";
+}
 
 .content_area {
 	height: inherit;

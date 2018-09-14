@@ -39,7 +39,7 @@
  	-[X] Add to PDFs list CANCELLED
 	-[X] Delete from PDFs list CANCELLED
 
--[ ] The Reader: 7
+-[X] The Reader: 7
 	-[X] Parse PDF for '?'s: 5
 	-[X] Adding clickable '?'s to questions list: 2.5
 			-[X] Make '?'s clickable: 2.5
@@ -57,9 +57,9 @@
 				-[X] Populates The Black Card
 					-[X] Question gets clicked question
 					-[X] Answer gets any previous answer 
-	-[ ] Highlight Text Passage: 3.5
-		-[ ] Create Question based on Highlight: 2.5
-		-[ ] Add to Answer of previously created Question based on Highlighted passage: 2.5
+	-[X] Highlight Text Passage: 3.5
+		-[X] Create Question based on Highlight: 2.5
+		-[X] Add to Answer of previously created Question based on Highlighted passage: 2.5
 
 -[X] Question Logger: 7
 	-[X] The Black Card
@@ -74,18 +74,17 @@
 			-[X] fields adjusts size on keyup
 				-[X] Question
 				-[X] Answer
-			-[ ] Updates div.display
-				-[ ] Handles old white card
+			-[X] Updates div.display
+				-[X] Handles old white card
 					-[X] Checks div.display for child with question text
 						-[X] clears child html
 						-[X] hides child
-				-[ ] Appends new white card to top of list
-					-[ ] BUG: Appends new white card to top AND bottom
-	-[ ] Question Viewer Module
+				-[X] Appends new white card to top of list
+	-[X] Question Viewer Module
 		-[X] Open on click of White Card
 		-[X] Edit answer: 2
 		-[X] Delete question
-		-[ ] Close button
+		-[X] Close button
 	-[X] Search Questions on keyup
 	-[X] Search Answers on keyup
 
@@ -95,7 +94,9 @@
 	-[X] Activates question mode
 
 -[ ] Gold Plates:
-	-[ ] Organize the TODO list by number of child tasks and then alphabetically
+	-[X] Toggle display helper tooltips on reader highlight/unselect
+	-[ ] Fix the typo in your project name
+	-[ ] Organize the TODO list by priority, number of child tasks, and then alphabetically
 	-[ ] Truncated Question Cards
 	-[ ] Long-Word-Wrapping Question Cards
 	-[ ] Sensible black card font sizes
@@ -103,6 +104,7 @@
 	-[X] Adjust height of input fields on window resize
 	-[ ] Change the text of the Edit Answer Button to be "Add Answer" when there's no answer
 	-[ ] Customizable Frontend Themes
+	-[ ] Clear placeholder text on focus, readd on blur
 	-[ ] Remove whitespace from new questions
 		-[ ] Strip external whitespace
 		-[ ] Remove newlines

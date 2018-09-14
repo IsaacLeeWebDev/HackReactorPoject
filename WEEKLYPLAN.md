@@ -27,7 +27,6 @@
 
 -[X] Front-End Polishing
 	-[X] jQuery Animations
-	-[ ] Adjustable fonts/themes
 
 ### Friday
 

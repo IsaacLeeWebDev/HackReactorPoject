@@ -1,4 +1,98 @@
+
+// localStorage properties that refer to data that users input.
 let nonStorageArray = ['length', 'key', 'getItem', 'setItem', 'removeItem', 'clear'];
+
+const setDisplayPdfSelection = function(e) {
+
+	// set default values
+    let display_pdf_selection = '';
+	let isInsideDisplayPdf = false;
+	$(document).unbind('keyup');
+
+	// identify the highlighted text and its parent
+    display_pdf_selection = (document.all) ? document.selection.createRange().text : document.getSelection();
+	let selection_parent = display_pdf_selection.anchorNode.parentElement;
+
+	// hide the tooltips if they're showing with a 
+	// "hide" version of .slideDown();
+	if($('#help').css('display') !== 'none') {
+	    var div = $("#help");
+	    
+	    var height = div.height();
+	    
+	    div.css({
+	        overflow: "hidden",
+	        marginTop: 0,
+	        height: height
+	    }).animate({
+	        marginTop: height,
+	        height: 0
+	    }, 200, function () {
+			        $(this).css({
+			            display: "none",
+			            overflow: "",
+			            height: "",
+			            marginTop: ""
+			        });
+			        triggerResize();
+				});
+	};
+
+	// This will determine whether the user has highlighted text within the PDF,
+	// and do a "show" version of .slideUp() if so.
+	while($(selection_parent)[0] !== $('body')[0]) {
+		if($(selection_parent)[0] === $('.display_pdf')[0]) {
+			if(display_pdf_selection.anchorOffset !== display_pdf_selection.focusOffset) {
+
+				if(display_pdf_selection !== '') {
+					
+					isInsideDisplayPdf = true;
+
+						var height = $("#help").css({
+					        display: "flex"
+					    }).height();
+
+						    $("#help").css({
+						        overflow: "hidden",
+						        marginTop: height,
+						        height: 0
+						    }).animate({
+						        marginTop: 0,
+						        height: height
+						    }, 200, triggerResize(25));
+					
+					};
+
+				};
+			};
+		selection_parent = selection_parent.parentElement;
+	};
+
+	// If the user has highlighted text from the PDF, this will add that text to the right field
+	// depending on the user's shortcut key.
+	$(document).keyup(function() {
+		if(isInsideDisplayPdf) { 
+			if(display_pdf_selection.anchorOffset !== display_pdf_selection.focusOffset) {
+				console.log(event.key);
+				if(event.key === 'Q') {
+					transferQuestionData(display_pdf_selection);
+				};
+				if(event.key === 'A') {
+					if($('.content_area').hasClass('reader_mode')) {
+						$('.floating_black_card').slideDown(200, function() {
+							cleanBoxModel();
+						});
+						$('#floating_black_card_user_input_answer').val(display_pdf_selection);
+					} else {
+						$('#question_log_black_card_user_input_answer').val(display_pdf_selection);
+						cleanBoxModel();
+					};
+				};
+			};
+		};
+	});
+
+};
 
 const findSentences = function(paragraph) {
 	let sentenceArray = [];
@@ -34,6 +128,54 @@ const getAllStoredQuestions = function() {
 	};
 };
 
+const publishWhiteCard = function() {
+	let $user_input_question;
+	let $user_input_answer;
+
+	// detects which publish button you're using
+	// TODO: just use IDs, what are you doing with this vanilla DOM traversal?!
+
+	if($(this.parentNode).hasClass('floating_black_card') === true) {
+		$user_input_question = $(this.parentNode.children[1])
+		$user_input_answer = $(this.parentNode.children[3])
+	} else {
+		$user_input_question = $(this.parentNode.children[0])
+		$user_input_answer = $(this.parentNode.children[2])
+	}
+
+	let inputKey = $user_input_question.val();
+	let inputValue = $user_input_answer.val();
+
+	$user_input_question.val('');
+	$user_input_answer.val('');
+
+	localStorage.setItem(inputKey, inputValue);
+
+	if($(this.parentNode).hasClass('floating_black_card') === true) {
+		$('.black_card_closer').click();
+	};
+
+	// TODO: Break this up into an array of strings and variables
+		// Better yet, make White Cards a class of their own.
+	let itemHtml = '<div class="white_card" data-storage-key="' + inputKey + '"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+inputKey + localStorage.getItem(inputKey) + 'question_div">' + inputKey + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+inputKey + localStorage.getItem(inputKey) + 'answer_div">' +  localStorage.getItem(inputKey) + '</div><div class="button_row" style="display:none"><div class="button_row_button edit_answer_button">Edit Answer</div><div class="button_row_button delete_question_button">Delete Question</div></div></div>';
+
+	for(let i = 0; i < $('.display')[0].children.length; i++) {
+		if($(itemHtml)[0].children[1].textContent === $('.display')[0].children[i].children[1].textContent) {
+			$($('.display')[0].children[i]).html('');
+			$($('.display')[0].children[i]).hide();
+		};
+	};
+
+	$(itemHtml).insertBefore($('.display')[0].children[0]);
+
+	$('.delete_question_button').click(deleteWhiteCard);
+	$('.edit_answer_button').click(editWhiteCardAnswer);
+	$($('.display')[0].children[0]).click(initializeWhiteCard);
+
+	$user_input_question.blur();
+	$user_input_answer.blur();
+}
+
 const initializeWhiteCard = function() {
 	let moduleCopy = $(this).clone();
 	moduleCopy.attr('id', 'moduleCopy');
@@ -46,7 +188,13 @@ const initializeWhiteCard = function() {
 	$(moduleCopy[0].children[2].children[0]).show();
 	$(moduleCopy[0].children[4].children[1]).click(deleteWhiteCard);
 	$(moduleCopy[0].children[4].children[0]).click(editWhiteCardAnswer);
+
+	$('<div class="module_copy_closer_wrapper"><div class="module_copy_closer">close</div></div>').insertBefore($(moduleCopy[0].children[0]));
 	triggerResize(moduleCopy.height() + 55)
+	$('.module_copy_closer').click(function() {
+		$('#question_viewer_module').slideUp(200);
+		triggerResize();
+	});
 };
 
 const deleteWhiteCard = function() {
@@ -104,71 +252,107 @@ const autoGrowTextareas = function (context) {
 	};
 };
 
+const cleanBoxModel = function() {
+
+	triggerResize();
+
+	let value1 = $('#floating_black_card_user_input_question').val()
+	let value2 =$('#floating_black_card_user_input_answer').val()
+	let value3 =$('#question_log_black_card_user_input_question').val()
+	let value4 =$('#question_log_black_card_user_input_answer').val()
+
+	$('#floating_black_card_user_input_question').val('');
+	$('#floating_black_card_user_input_answer').val('');
+	$('#question_log_black_card_user_input_question').val('');
+	$('#question_log_black_card_user_input_answer').val('');
+
+	$('#floating_black_card_user_input_question').blur();
+	$('#floating_black_card_user_input_answer').blur();
+	$('#question_log_black_card_user_input_question').blur();
+	$('#question_log_black_card_user_input_answer').blur();
+
+	$('#floating_black_card_user_input_question').val(value1);
+	$('#floating_black_card_user_input_answer').val(value2);
+	$('#question_log_black_card_user_input_question').val(value3);
+	$('#question_log_black_card_user_input_answer').val(value4);
+
+	autoGrowTextareas()($('#floating_black_card_user_input_question')[0]);
+	autoGrowTextareas()($('#floating_black_card_user_input_answer')[0]);
+	autoGrowTextareas()($('#question_log_black_card_user_input_question')[0]);
+	autoGrowTextareas()($('#question_log_black_card_user_input_answer')[0]);
+	// TODO: adjust size of input fields on resize
+}
+
 const editWhiteCardAnswer = function() {
 	$(this.parentNode.parentNode).hide();
 	$('.floating_black_card').show();
 	$('#floating_black_card_user_input_question').val($(this.parentNode.parentNode.children[1]).text());
 	$('#floating_black_card_user_input_answer').val($(this.parentNode.parentNode.children[3]).text());
- 	$(window).resize();
+ 	cleanBoxModel();
 	triggerResize($('.floating_black_card').height() + 20);
+};
+
+const transferQuestionData = function(isFromQShortcut, isFromAShortcut) {
+
+	let $question_field;
+	let $answer_field;
+	let $reader_question_text;
+
+	if(isFromQShortcut){
+		$reader_question_text = isFromQShortcut;
+	} else {
+		$reader_question_text = $(this).text().slice($(this).text().search(/\S/g));
+	};
+
+	if($('.content_area').hasClass('balanced_mode')) { // populate question log black card
+		$question_field = $('#question_log_black_card_user_input_question');
+		$answer_field = $('#question_log_black_card_user_input_answer')
+		triggerResize();
+	} else { // show floating black card
+		$question_field = $('#floating_black_card_user_input_question');
+		$answer_field = $('#floating_black_card_user_input_answer')
+		$('.floating_black_card').slideDown(200, function() {
+			triggerResize($('.floating_black_card').height() + 20);
+		});
+	};
+	$($answer_field).val('');
+	$($question_field).val('');			
+	$($answer_field).blur();
+	$($question_field).blur();
+	$($question_field).val($reader_question_text);
+
+	if(isFromAShortcut) {
+
+	} else {	
+		for(key in localStorage) {
+				if(nonStorageArray.indexOf(key) === -1) {
+					if($reader_question_text === key) {
+						$($answer_field).val(localStorage[key]);
+					};
+				};
+			};
+		};
+
+
+	autoGrowTextareas()($question_field[0]);
+	autoGrowTextareas()($answer_field[0]);
 };
 
 $(document).ready(function() {
 
-	getAllStoredQuestions();
+	$('.white_card').click(initializeWhiteCard);
+	$('.publish_button').click(publishWhiteCard);
+	$('.display_pdf').mouseup(setDisplayPdfSelection);
+	$('.reader_question').click(transferQuestionData);
 	$('.floating_black_card').hide();
 	$('<div class="document_end"></div>').insertAfter($('.page:last'));
 	$('.page:last').css('margin-bottom', '8px');
+	
+	getAllStoredQuestions();
+	triggerResize();
 
 	// TODO: Break up this function. It does too much.
 		// click binding can be offloaded to another function
-	$('.publish_button').click(function() {
-		let $user_input_question;
-		let $user_input_answer;
-
-		// detects which publish button you're using
-		// TODO: just use IDs, what are you doing with this vanilla DOM traversal?!
-
-		if($(this.parentNode).hasClass('floating_black_card') === true) {
-			$user_input_question = $(this.parentNode.children[1])
-			$user_input_answer = $(this.parentNode.children[3])
-		} else {
-			$user_input_question = $(this.parentNode.children[0])
-			$user_input_answer = $(this.parentNode.children[2])
-		}
-
-		let inputKey = $user_input_question.val();
-		let inputValue = $user_input_answer.val();
-
-		$user_input_question.val('');
-		$user_input_answer.val('');
-
-		localStorage.setItem(inputKey, inputValue);
-
-		if($(this.parentNode).hasClass('floating_black_card') === true) {
-			$('.black_card_closer').click();
-		};
-
-		// TODO: Break this up into an array of strings and variables
-			// Better yet, make White Cards a class of their own.
-    	let itemHtml = '<div class="white_card" data-storage-key="' + inputKey + '"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+inputKey + localStorage.getItem(inputKey) + 'question_div">' + inputKey + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+inputKey + localStorage.getItem(inputKey) + 'answer_div">' +  localStorage.getItem(inputKey) + '</div><div class="button_row" style="display:none"><div class="button_row_button edit_answer_button">Edit Answer</div><div class="button_row_button delete_question_button">Delete Question</div></div></div>';
-
-		for(let i = 0; i < $('.display')[0].children.length; i++) {
-			if($(itemHtml)[0].children[1].textContent === $('.display')[0].children[i].children[1].textContent) {
-				$($('.display')[0].children[i]).html('');
-				$($('.display')[0].children[i]).hide();
-			};
-		};
-
-		$(itemHtml).insertBefore($('.display')[0].children[0]);
-
-		$('.delete_question_button').click(deleteWhiteCard);
-		$('.edit_answer_button').click(editWhiteCardAnswer);
-		$($('.display')[0].children[0]).click(initializeWhiteCard);
-
-		$user_input_question.blur();
-		$user_input_answer.blur();
-	});
 
 
 	// give sentences a class of 'sentence' and questions a class of 'question'
@@ -222,10 +406,6 @@ $(document).ready(function() {
 	$('.user_input_answer_search').keyup(function() {
 		filterQuetions();
 	});
-	
-
-	triggerResize();
-
 
 	// $(document).bind('fullscreenchange', function() {
 	// 	$('body').height(window.innerHeight);
@@ -252,75 +432,15 @@ $(document).ready(function() {
 		$('.content_area').addClass('question_mode');
 	});
 
-	$('.reader_question').click(function() {
-		let $reader_question_text = $(this).text().slice($(this).text().search(/\S/g));
-		let $question_field;
-		let $answer_field;
-		if($('.content_area').hasClass('balanced_mode')) { // populate question log black card
-			$question_field = $('#question_log_black_card_user_input_question');
-			$answer_field = $('#question_log_black_card_user_input_answer')
-			triggerResize();
-		} else { // show floating black card
-			$question_field = $('#floating_black_card_user_input_question');
-			$answer_field = $('#floating_black_card_user_input_answer')
-			$('.floating_black_card').slideDown(200, function() {
-				triggerResize($('.floating_black_card').height() + 20);
-			});
-		};
-		$($answer_field).val('');
-		$($question_field).val('');			
-		$($answer_field).blur();
-		$($question_field).blur();
-		$($question_field).val($reader_question_text);
-		for(key in localStorage) {
-			if(nonStorageArray.indexOf(key) === -1) {
-				if($reader_question_text === key) {
-					$($answer_field).val(localStorage[key]);
-				};
-			};
-		};
-		autoGrowTextareas()($question_field[0]);
-		autoGrowTextareas()($answer_field[0]);
-	});
 
 	$('.black_card_closer').click(function(){
 		$($(this)[0].parentNode.parentNode).slideUp(200, function(){
-			triggerResize();
 			autoGrowTextareas()($('#floating_black_card_user_input_question'));
 			autoGrowTextareas()($('#floating_black_card_user_input_answer'));
 		});
-	});
-
-	$(window).resize(function(){
-
 		triggerResize();
-
-		let value1 = $('#floating_black_card_user_input_question').val()
-		let value2 =$('#floating_black_card_user_input_answer').val()
-		let value3 =$('#question_log_black_card_user_input_question').val()
-		let value4 =$('#question_log_black_card_user_input_answer').val()
-
-		$('#floating_black_card_user_input_question').val('');
-		$('#floating_black_card_user_input_answer').val('');
-		$('#question_log_black_card_user_input_question').val('');
-		$('#question_log_black_card_user_input_answer').val('');
-
-		$('#floating_black_card_user_input_question').blur();
-		$('#floating_black_card_user_input_answer').blur();
-		$('#question_log_black_card_user_input_question').blur();
-		$('#question_log_black_card_user_input_answer').blur();
-
-		$('#floating_black_card_user_input_question').val(value1);
-		$('#floating_black_card_user_input_answer').val(value2);
-		$('#question_log_black_card_user_input_question').val(value3);
-		$('#question_log_black_card_user_input_answer').val(value4);
-
-		autoGrowTextareas()($('#floating_black_card_user_input_question')[0]);
-		autoGrowTextareas()($('#floating_black_card_user_input_answer')[0]);
-		autoGrowTextareas()($('#question_log_black_card_user_input_question')[0]);
-		autoGrowTextareas()($('#question_log_black_card_user_input_answer')[0]);
-		// TODO: adjust size of input fields on resize
 	});
 
-	$('.white_card').click(initializeWhiteCard);
+	$(window).resize(cleanBoxModel);
+
 }); // end document.ready
