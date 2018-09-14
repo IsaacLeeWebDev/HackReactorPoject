@@ -35,44 +35,52 @@
 
 ### 1 = already done, 5 = 1 day, 10 = five days
 
--[X] Upload PDF: 5 CANCELLED
+-[X] Upload PDF: 5 CANCELLED. PDF CONVERSION IS HARD.
  	-[X] Add to PDFs list CANCELLED
 	-[X] Delete from PDFs list CANCELLED
 
--[ ] Highlighting/Selecting PDFs: 7
+-[ ] The Reader: 7
 	-[X] Parse PDF for '?'s: 5
-	-[ ] Add clickable '?'s to questions list: 2.5
+	-[ ] Adding clickable '?'s to questions list: 2.5
 			-[X] Make '?'s clickable: 2.5
-			-[X] Put question text in black card that appears
-			-[ ] Make close button work
-			-[ ] Make new publish button work
-				-[ ] publish question
-				-[ ] clear text fields
-				-[ ] close new black card
+			-[ ] Reader Mode functionality
+				-[ ] Populates The Floating Black Card
+					-[X] FBC question field gets clicked question
+					-[ ] FBC answer field gets any previous answer
+				-[X] Make close button work
+				-[X] Make new publish button work
+					-[X] publish question
+					-[X] clear text fields
+					-[X] close new black card
+			-[ ] Balanced Mode functionality
+				-[X] Populates The Black Card
+					-[X] Question gets clicked question
+					-[ ] Answer gets any previous answer 
 	-[ ] Highlight Text Passage: 3.5
 		-[ ] Create Question based on Highlight: 2.5
 		-[ ] Add to Answer of previously created Question based on Highlighted passage: 2.5
 
--[ ] Questions list: 7
-	-[X] Add question: 2.5
-		-[X] Adds question on Publish
-		-[X] Auto-growing question field
-			-[X] adjusts size on keyup
-			-[X] resets size after Publish
-	-[X] Delete question: 2.5
-	-[X] Add answer: 2
-		-[X] Adds answer to question on Publish
-		-[X] Auto-growing question field
-			-[X] adjusts size on keyup
-			-[X] resets size after Publish
+-[ ] Question Logger: 7
+	-[X] The Black Card
+		-[X] Publish Button: 2
+			-[X] Makes White Card on click
+				-[X] White Card inherits feild data
+					-[X] Question
+					-[X] Answer
+				-[X] Resets fields on click
+					-[X] Values
+					-[X] Sizes
+			-[X] fields adjusts size on keyup
+				-[X] Question
+				-[X] Answer
 	-[ ] Question Viewer Module
 		-[ ] Edit answer: 2
 		-[ ] Delete Answer: 2
 		-[ ] Edit question: 2.5
 		-[ ] Delete question
+	-[X] Search Questions on keyup
+	-[X] Search Answers on keyup
 	-[ ] Truncated Question Cards
 	-[ ] Long-Word-Wrapping Question Cards
 	-[ ] See More
-	-[X] Search Questions on keyup
-	-[X] Search Answers on keyup
 

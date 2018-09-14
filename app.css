@@ -3,16 +3,17 @@ body {
 	grid-template-columns: 55% 45%;*/
 	background-color: grey;
 	overflow: hidden;
+	margin: 0;
 }
 
 .navigation{
 	display: flex;
-	justify-content: space-between;
-	box-shadow: 3px 3px 5px #111;
-	border-radius: 10px;
-	font-size: 16pt;
-	font-family: "Trebuchet MS";
-	cursor: pointer;
+    justify-content: space-between;
+    border-radius: 10px;
+    font-size: 16pt;
+    font-family: "Trebuchet MS";
+    cursor: pointer;
+    margin: 20px;
 }
 
 .mode_button{
@@ -21,24 +22,59 @@ body {
 }
 
 .reader_mode_button {
-	background-color: #fcfcff;
-	border-top-left-radius: 10px;
-	border-bottom-left-radius: 10px;
-	color: white;
+    background-color: #fcfcff;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    color: white;
+}
+
+.reader_mode_button:hover {
+    box-shadow: 0px 0px 20px 0px black;
 }
 
 .question_mode_button {
-	background-color: black;
-	border-top-right-radius: 10px;
-	border-bottom-right-radius: 10px;
-	color: black;
+    background-color: black;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    color: black;
+}
+
+.question_mode_button:hover {
+    box-shadow: 0px 0px 20px 0px white;
 }
 
 .balanced_mode_button {
-	background-color: grey;
-	width: 10%;
-	border-radius: 10px;
-	box-shadow: 0px 0px 100px grey;
+	display: grid;
+    background-color: grey;
+    width: 150px;
+    z-index: 1;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 100%;
+    padding: 5px;
+}
+
+.balanced_mode_button:hover {
+    box-shadow: 0px 0px 8px 1px lightblue inset;
+}
+
+.half {
+	display: grid;
+	grid-row: 1 / 2;
+}
+
+.white_half {
+	grid-column: 1 / 2;
+	background-color: white;
+	color: white;
+	border-top-left-radius: 7px;
+	border-bottom-left-radius: 7px;
+}
+
+.black_half {
+	grid-column: 2 / 3;
+	background-color: black;
+	border-top-right-radius: 7px;
+	border-bottom-right-radius: 7px;
 }
 
 .black_card_closer_wrapper {
@@ -62,6 +98,7 @@ body {
 
 .content_area {
 	height: inherit;
+	margin: 0 10px;
 }
 
 .balanced_mode {
@@ -81,7 +118,6 @@ body {
 
 .question_maker {
 	height: inherit;
-	margin: 20px 0;
 	padding: 20px;
 	background-color: black;
 	overflow: scroll;
@@ -167,7 +203,7 @@ body {
 	height: 36px;
 }
 
-.display_item {
+.white_card {
 	margin: 20px 2%;
 	padding: 20px;
 	background-color: white;
@@ -190,14 +226,15 @@ body {
 .display_pdf {
 	height: inherit;
 	margin: 0;
-	margin-top: 20px;
 	background-color: #fcfcff;
 	padding: 20px;
 	overflow: scroll;
 	overflow-x: hidden;
+	direction: rtl;
 }
 
 .page {
+	direction: ltr;
 	margin: 30px;
 	padding: 40px;
 	box-shadow: -2px 0 20px #333;
@@ -318,4 +355,12 @@ body {
 	display: inline-grid;
 	grid-column: 2 / 3;
 	grid-row: 1 / 2;
+}
+
+.document_end {
+    display: flex;
+    height: 8px;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    box-shadow: 0 15px 26px 4px grey;
 }

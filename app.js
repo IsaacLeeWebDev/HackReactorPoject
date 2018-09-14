@@ -27,11 +27,10 @@ const findSentences = function(paragraph) {
 const getAllStoredQuestions = function() {
 	for(let key in localStorage) {
 		if(nonStorageArray.indexOf(key) === -1) { 
-			$('.display:first').append($('<div class="display_item" data-storage-key="'+key+'"><div class="date_div">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div>Your Answer:</div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="delete_text_button">Delete question</div></div>'));
+			$('.display:first').append($('<div class="white_card" data-storage-key="'+key+'"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="delete_text_button" style="display:none">Delete question</div></div>'));
 			$('.delete_text_button').click(function() {
 				let deletedItem = $(this)[0].parentNode.children[1].textContent;
 			    localStorage.removeItem( deletedItem ); // grab the title and plop here
-			    alert('item deleted? check the console');
 			    $($(this)[0].parentNode).hide();
 			});
 		};
@@ -47,7 +46,7 @@ const filterQuetions = function() {
 		for(key in localStorage) {
 			if(nonStorageArray.indexOf(key) === -1) {
 				if(key.indexOf(filterValQuestion) !== -1 && localStorage[key].indexOf(filterValAnswer) !== -1) {
-					$('.display:first').append($('<div class="display_item" data-storage-key="'+key+'"><div class="date_div">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div>Your Answer:</div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="delete_text_button">Delete question</div></div>'));
+					$('.display:first').append($('<div class="white_card" data-storage-key="'+key+'"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+ key + localStorage.getItem(key) + 'question_div">' + key + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+key + localStorage.getItem(key) + 'answer_div">' +  localStorage.getItem(key) + '</div><div class="delete_text_button" style="display:none">Delete question</div></div>'));
 					$('.delete_text_button').click(function() {
 						let deletedItem = $(this)[0].parentNode.children[1].textContent;
 					    localStorage.removeItem( deletedItem ); // grab the title and plop here
@@ -62,13 +61,11 @@ const filterQuetions = function() {
 };
 
 const triggerResize = function(n) {
-
 	if(n === undefined) {
 		n = 0;
 	};
-
 	$('body').height(window.innerHeight);
-	$('.content_area').height($('body').height() * 0.92 - 20 - n);
+	$('.content_area').height($('body').height() * 0.92 - 40 - n);
 };
 
 const autoGrowTextareas = function (context) {
@@ -85,14 +82,22 @@ const autoGrowTextareas = function (context) {
 $(document).ready(function() {
 
 	getAllStoredQuestions();
-
-	$('.on_click_black_card').hide();
+	$('.floating_black_card').hide();
+	$('<div class="document_end"></div>').insertAfter($('.page:last'));
+	$('.page:last').css('margin-bottom', '8px');
 
 	$('.publish_button').click(function() {
 
-		let $user_input_question = $(this.parentNode.children[0])
-		let $user_input_answer = $(this.parentNode.children[2])
+		let $user_input_question;
+		let $user_input_answer;
 
+		if($(this.parentNode).hasClass('floating_black_card') === true) {
+			$user_input_question = $(this.parentNode.children[1])
+			$user_input_answer = $(this.parentNode.children[3])
+		} else {
+			$user_input_question = $(this.parentNode.children[0])
+			$user_input_answer = $(this.parentNode.children[2])
+		}
 		let inputKey = $user_input_question.val();
 		let inputValue = $user_input_answer.val();
 
@@ -104,9 +109,11 @@ $(document).ready(function() {
 
 		console.log(inputKey, inputValue);
 
-		// alert("value from local storage " + localStorage.getItem("testStorage") );
+		if($(this.parentNode).hasClass('floating_black_card') === true) {
+			$('.black_card_closer').click();
+		};
 		
-    	let itemHtml = '<div class="display_item" data-storage-key="' + inputKey + '"><div class="date_div">Your Question on: ' + Date() + '</div><div class="question_div" id="'+inputKey + localStorage.getItem(inputKey) + 'question_div">' + inputKey + '</div><div>Your Answer:</div><div class="answer_div" id="'+inputKey + localStorage.getItem(inputKey) + 'answer_div">' +  localStorage.getItem(inputKey) + '</div><div class="delete_text_button">Delete question</div></div>';
+    	let itemHtml = '<div class="white_card" data-storage-key="' + inputKey + '"><div class="date_div" style="display:none">Your Question on: ' + Date() + '</div><div class="question_div" id="'+inputKey + localStorage.getItem(inputKey) + 'question_div">' + inputKey + '</div><div><span class="whose_answer" style="display:none">Your Answer:</span></div><div class="answer_div" id="'+inputKey + localStorage.getItem(inputKey) + 'answer_div">' +  localStorage.getItem(inputKey) + '</div><div class="delete_text_button" style="display:none">Delete question</div></div>';
 		$(itemHtml).insertBefore($('.display')[0].children[0]);
 		// $('.display:first').append($(itemHtml));
 
@@ -183,7 +190,7 @@ $(document).ready(function() {
 	// });
 	// $('.display_pdf').height($('body').height() - 100)
 	// $('.question_maker').height($('body').height() - 100)
-	$('.display_item').click(function(){
+	$('.white_card').click(function(){
 		focusQuestionCard = $(this);
 		focusQuestionCard.css('background-color: green');
 	});
@@ -206,13 +213,34 @@ $(document).ready(function() {
 		$('.content_area').addClass('question_mode');
 	});
 
-	$('.reader_question').click(function(){
-		let $reader_question_text = $(this).text();
-		let $hidden_question_field = $('.on_click_black_card')[0].children[1];
-		$($hidden_question_field).text($reader_question_text);
-		$('.on_click_black_card').slideDown(200, function() {
-			triggerResize($('.on_click_black_card').height())
-			autoGrowTextareas()($hidden_question_field);
+	$('.reader_question').click(function() {
+		let $reader_question_text = $(this).text().slice($(this).text().search(/\S/g));
+		let $question_field;
+		if($('.content_area').hasClass('balanced_mode')) { // populate question log black card
+			
+			$question_field = $('#question_log_black_card_user_input_question');
+			$($question_field).val($reader_question_text);
+			autoGrowTextareas()($question_field[0]);
+		} else { // show floating black card
+			$question_field = $('#floating_black_card_user_input_question');
+			$($question_field).val($reader_question_text);
+			$('.floating_black_card').slideDown(200, function() {
+				triggerResize($('.floating_black_card').height())
+				autoGrowTextareas()($question_field[0]);
+			});
+		};
+	});
+
+	$('.black_card_closer').click(function(){
+		$($(this)[0].parentNode.parentNode).slideUp(200, function(){
+			triggerResize();
+			autoGrowTextareas()($('#floating_black_card_user_input_question'));
+			autoGrowTextareas()($('#floating_black_card_user_input_answer'));
 		});
 	});
+
+	$(window).resize(function(){
+		triggerResize();
+	});
+
 }); // end document.ready

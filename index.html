@@ -16,15 +16,15 @@
 <!--  -->
 <div class="navigation">
 	<div class="mode_button reader_mode_button">Reader</div>
-	<div class="mode_button balanced_mode_button">=</div>
+	<div class="mode_button balanced_mode_button"><span class='half white_half'>=</span><span class='half black_half'>=</span></div>
 	<div class="mode_button question_mode_button">Questions</div>
 </div>
 
-<div class='black_card on_click_black_card'>
+<div class='black_card floating_black_card'>
 	<div class="black_card_closer_wrapper"><span class="black_card_closer">close</span></div>
-	<textarea class="user_input user_input_question" type="text" placeholder="Question"></textarea>
+	<textarea class="user_input user_input_question" id="floating_black_card_user_input_question" type="text" placeholder="Question"></textarea>
 	<div class="q_a_divider"></div>
-	<textarea class="user_input user_input_answer" placeholder="Answer (optional)"></textarea>
+	<textarea class="user_input user_input_answer" id="floating_black_card_user_input_answer"placeholder="Answer (optional)"></textarea>
 	<div class="user_input publish_button">Publish</div>
 </div>
 
@@ -252,10 +252,10 @@
 		</div>
 
 		<div class='question_maker'>
-			<div class='black_card'>
-				<textarea class="user_input user_input_question" type="text" placeholder="Question"></textarea>
+			<div class='black_card' id='question_log_black_card'>
+				<textarea class="user_input user_input_question" id="question_log_black_card_user_input_question" type="text" placeholder="Question"></textarea>
 				<div class="q_a_divider"></div>
-				<textarea class="user_input user_input_answer" placeholder="Answer (optional)"></textarea>
+				<textarea class="user_input user_input_answer" id="question_log_black_card_user_input_answer" placeholder="Answer (optional)"></textarea>
 				<div class="user_input publish_button">Publish</div>
 			</div>
 			<!-- button class="delete_text_button"> Delete Text! </button -->
